@@ -1,0 +1,52 @@
+.Header {
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*bottom: auto;*/
+  /*z-index: 100;*/
+
+  border-bottom: 1px solid white;
+  box-shadow: 0 0 0 1px transparent;
+
+  transition: box-shadow 200ms ease-in-out;
+}
+
+.Header_scrolled {
+  box-shadow: 0 8px 16px -12px var(--overlay), 0 2px 4px -4px var(--overlay);
+}
+
+.Header__Container {
+  padding: 0;
+}
+
+.Inner {
+  padding: 16px 0 16px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@supports ( padding-top: env(safe-area-inset-top, 0)) {
+  .Inner {
+    padding-top: calc(16px + env(safe-area-inset-top, 0));
+  }
+}
+
+.Title {
+  text-transform: capitalize;
+
+  font-family: Stalinist One, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 24px;
+  color: white;
+}
+
+.Inner a {
+  margin: 0;
+  height: 24px;
+}

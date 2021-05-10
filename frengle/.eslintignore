@@ -1,0 +1,10 @@
+node_modules/
+
+*.spec.tsx
+*.spec.tsx.snap
+generated/
+
+.next
+_next
+dist
+__tmp__

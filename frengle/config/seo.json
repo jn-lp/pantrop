@@ -1,0 +1,27 @@
+{
+  "title": null,
+  "titleTemplate": "%s | Pantrop",
+  "defaultTitle": "Pantrop",
+  "description": "Pantrop is where you create and share your trips",
+  "openGraph": {
+    "title": "Pantrop",
+    "description": "Pantrop is where you create and share your trips",
+    "type": "website",
+    "locale": "ru_RU",
+    "url": "https://pantrop.io",
+    "site_name": "Pantrop",
+    "images": [
+      {
+        "url": "/open-graph.png",
+        "width": 800,
+        "height": 600,
+        "alt": "Pantrop"
+      }
+    ]
+  },
+  "twitter": {
+    "handle": "@pantropio",
+    "site": "@pantropio",
+    "cardType": "summary_large_image"
+  }
+}

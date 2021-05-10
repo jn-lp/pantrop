@@ -1,0 +1,144 @@
+.Inner {
+  width: 100%;
+  padding-top: 16px;
+
+  display: grid;
+  gap: 16px
+}
+
+.Header {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Avatar {
+  background-color: var(--skeleton-graphic);
+  border-radius: 8px;
+}
+
+.Name {
+  height: 40px;
+  margin-left: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.Name h4 {
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.Name small {
+  margin: 0;
+
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+
+  opacity: .8;
+}
+
+.MembersCount {
+  display: flex;
+  align-items: center;
+}
+
+.MembersCount b {
+  font-family: Helvetic«a, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 25px;
+}
+
+.Map {
+  min-height: 176px;
+
+  background-color: var(--skeleton-text);
+
+  border-radius: 8px;
+}
+
+.Title {
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 25px;
+}
+
+.Info {
+  margin: 0;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 16px
+}
+
+.Info h5 {
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.Info span {
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 18px;
+
+  opacity: .8;
+}
+
+.Actions {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px
+}
+
+.Actions button {
+  height: 40px;
+
+  background-color: var(--container-background-light);
+  /*background-color: white;*/
+  border-radius: 8px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  font-family: Helvetica, sans-serif;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.032em;
+  /*color: var(--magenta-6);*/
+}
+
+.Actions button svg {
+  margin-right: 4px;
+}
