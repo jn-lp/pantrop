@@ -1,18 +1,18 @@
 package usersrouter
 
 import (
-  "github.com/gofiber/fiber/v2"
-  "github.com/jn-lp/pantrop/barbet"
-  "github.com/jn-lp/pantrop/barbet/middlewares/auth"
-  "github.com/jn-lp/pantrop/barbet/svcs/users"
+	"github.com/gofiber/fiber/v2"
+	"github.com/jn-lp/pantrop/barbet"
+	authmw2 "github.com/jn-lp/pantrop/barbet/svcs/auth/authmw"
+	"github.com/jn-lp/pantrop/barbet/svcs/users"
 )
 
 func Router(app fiber.Router, service users.Service) {
   app.Get("/", listUsers(service))
   app.Post("/", createUser(service))
-  app.Put("/", auth.Protected(), updateUser(service))
+  app.Put("/", authmw2.Protected(), updateUser(service))
   app.Get("/:username", getUser(service))
-  app.Delete("/:username", auth.Protected(), deleteUser(service))
+  app.Delete("/:username", authmw2.Protected(), deleteUser(service))
 }
 
 func listUsers(service users.Service) fiber.Handler {

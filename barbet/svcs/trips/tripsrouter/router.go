@@ -1,18 +1,18 @@
 package tripsrouter
 
 import (
-  "github.com/gofiber/fiber/v2"
-  "github.com/jn-lp/pantrop/barbet"
-  "github.com/jn-lp/pantrop/barbet/middlewares/auth"
-  "github.com/jn-lp/pantrop/barbet/svcs/trips"
+	"github.com/gofiber/fiber/v2"
+	"github.com/jn-lp/pantrop/barbet"
+	authmw2 "github.com/jn-lp/pantrop/barbet/svcs/auth/authmw"
+	"github.com/jn-lp/pantrop/barbet/svcs/trips"
 )
 
 func Router(app fiber.Router, service trips.Service) {
   app.Get("/", listTrips(service))
-  app.Post("/", auth.Protected(), createTrip(service))
-  app.Put("/", auth.Protected(), updateTrip(service))
+  app.Post("/", authmw2.Protected(), createTrip(service))
+  app.Put("/", authmw2.Protected(), updateTrip(service))
   app.Get("/:tripID", getTrip(service))
-  app.Delete("/:tripID", auth.Protected(), deleteTrip(service))
+  app.Delete("/:tripID", authmw2.Protected(), deleteTrip(service))
 }
 
 func listTrips(service trips.Service) fiber.Handler {

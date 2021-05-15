@@ -1,4 +1,4 @@
-package auth
+package authmw
 
 import (
   "github.com/gofiber/fiber/v2"

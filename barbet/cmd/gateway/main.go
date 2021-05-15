@@ -1,6 +1,7 @@
 package main
 
 import (
+  "database/sql"
   "flag"
   "log"
   "os"
@@ -12,8 +13,9 @@ import (
   "github.com/gofiber/fiber/v2/middleware/cors"
   "github.com/gofiber/fiber/v2/middleware/limiter"
   "github.com/gofiber/fiber/v2/middleware/logger"
-  _ "github.com/jinzhu/gorm/dialects/sqlite"
+
   "github.com/jn-lp/pantrop/barbet/router"
+  "gorm.io/driver/postgres"
 
   "github.com/jn-lp/pantrop/barbet/pkg/signal"
 )
@@ -88,7 +90,10 @@ func main() {
   app.Use(cors.New())
   // app.Use(recover.New())
 
-  router.Setup(app)
+  db, err := sql.Open("postgres", "mydb_dsn")
+  router.Setup(app, postgres.New(postgres.Config{
+    Conn: db,
+  }))
 
   go func() {
     if err := app.Listen(*port); err != nil {

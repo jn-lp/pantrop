@@ -5,8 +5,13 @@ import (
 
   "github.com/gofiber/fiber/v2"
   "github.com/gofiber/fiber/v2/middleware/monitor"
+  "github.com/jn-lp/pantrop/barbet"
+  "github.com/jn-lp/pantrop/barbet/svcs/auth"
+  "github.com/jn-lp/pantrop/barbet/svcs/auth/authrouter"
+  "github.com/jn-lp/pantrop/barbet/svcs/auth/authsvc"
+  "github.com/jn-lp/pantrop/barbet/svcs/trips/tripssvc"
+  "github.com/jn-lp/pantrop/barbet/svcs/users/userssvc"
 
-  "gorm.io/driver/sqlite"
   "gorm.io/gorm"
 
   "github.com/jn-lp/pantrop/barbet/svcs/trips"
@@ -17,37 +22,52 @@ import (
   "github.com/jn-lp/pantrop/barbet/svcs/users/usersrouter"
 )
 
-func Setup(app *fiber.App) {
+func Setup(app *fiber.App, dialector gorm.Dialector) {
   app.Get("/dashboard", monitor.New())
 
   app.Get("/", func(c *fiber.Ctx) error {
     return c.SendString("Hello, World 👋!")
   })
 
+  var usersService users.Service
   {
-    db, err := gorm.Open(sqlite.Open("users.db"), &gorm.Config{PrepareStmt: true})
+    db, err := gorm.Open(dialector, &gorm.Config{PrepareStmt: true})
     if err != nil {
       log.Fatal("Users DB Connection Error $s", err)
     }
-    // db.AutoMigrate(&barbet.User{})
+    err = db.AutoMigrate(&barbet.User{})
+    if err != nil {
+      log.Fatal("Users DB Migration Error $s", err)
+    }
 
     repo := usersrepo.New(db)
-    service := users.New(repo)
+    usersService = userssvc.New(repo)
     routes := app.Group("/v1/users")
-    usersrouter.Router(routes, service)
+    usersrouter.Router(routes, usersService)
   }
 
+  var tripsService trips.Service
   {
-    db, err := gorm.Open(sqlite.Open("trips.db"), &gorm.Config{PrepareStmt: true})
+    db, err := gorm.Open(dialector, &gorm.Config{PrepareStmt: true})
     if err != nil {
       log.Fatal("Trips DB Connection Error $s", err)
     }
-    // db.AutoMigrate(&barbet.Trip{})
+    err = db.AutoMigrate(&barbet.Trip{})
+    if err != nil {
+      log.Fatal("Trips DB Migration Error $s", err)
+    }
 
     repo := tripsrepo.New(db)
-    service := trips.New(repo)
+    tripsService = tripssvc.New(repo)
     routes := app.Group("/v1/trips")
-    tripsrouter.Router(routes, service)
+    tripsrouter.Router(routes, tripsService)
+  }
+
+  var authService auth.Service
+  {
+    authService = authsvc.New(usersService)
+    routes := app.Group("/v1/auth")
+    authrouter.Router(routes, authService)
   }
 
   app.Use(func(c *fiber.Ctx) error {
